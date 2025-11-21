@@ -19,7 +19,7 @@ INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, IN
 		| MB_SYSTEMMODAL
 		| MB_RIGHT
 	);*/
-	DialogBoxParam(hInstance, MAKEINTRESOURCE(IDD_DIALOG1), NULL, (DLGPROC)DlgProc, 0);
+	DialogBoxParam(hInstance, MAKEINTRESOURCE(IDD_DIALOG_MAIN), NULL, (DLGPROC)DlgProc, 0);
 	return 0;
 	int a = 2;
 	int* pa = &a;	//pa - Pointer to 'a'
