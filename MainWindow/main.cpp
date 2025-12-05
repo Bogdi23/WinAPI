@@ -1,5 +1,8 @@
 ﻿#include<Windows.h>
+#include<cstdio>
 #include"resource.h"
+
+#define IDC_BUTTON 1000;
 
 CONST CHAR g_sz_WINDOW_CLASS[] = "My first window";
 
@@ -96,8 +99,40 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	switch (uMsg)
 	{
 	case WM_CREATE:
-		MessageBox(hwnd, "Cursor check", "Info", MB_OK | MB_ICONINFORMATION);
-		break;
+		//MessageBox(hwnd, "Cursor check", "Info", MB_OK | MB_ICONINFORMATION);
+		HWND hwnd = CreateWindowEx
+		(
+			NULL,
+			"Button",
+			"Кнопка",
+			WS_CHILD | WS_VISIBLE,
+			10, 10,
+			150, 80,
+			hwnd,
+			(HMENU)1000,
+			GetModuleHandle(NULL),
+			NULL
+		);
+	break;
+	case WM_MOVE:
+	case WM_SIZE:
+	{
+		RECT window_rect = {};
+		GetWindowRect(hwnd, &window_rect);
+		CONST INT SIZE = 256;
+		CHAR sz_title[SIZE] = {};
+		wsprintf
+		(
+			sz_title,
+			"%s, Position: %ix%i, Size: %ix%i",
+			g_sz_WINDOW_CLASS,
+			window_rect.left, window_rect.top,
+			window_rect.right - window_rect.left,
+			window_rect.bottom - window_rect.top
+		);
+		SendMessage(hwnd, WM_SETTEXT, 0, (LPARAM)sz_title);
+	}
+	break;
 	case WM_COMMAND:
 		break;
 	case WM_DESTROY:
